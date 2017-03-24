@@ -32,6 +32,7 @@
             <fieldNames>
                 <message>log-message</message>
                 <logger>component</logger>
+                <tags>audience</tags>
                 <version>[ignore]</version>
                 <thread>[ignore]</thread>
                 <levelValue>[ignore]</levelValue>
