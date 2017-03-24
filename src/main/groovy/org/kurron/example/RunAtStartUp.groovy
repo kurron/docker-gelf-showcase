@@ -19,6 +19,8 @@ import groovy.util.logging.Slf4j
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
 
+import java.util.concurrent.ThreadLocalRandom
+
 /**
  * Initialization logic, like pre-warming a cache, goes here.
  **/
@@ -28,5 +30,12 @@ class RunAtStartUp implements ApplicationRunner {
     void run( final ApplicationArguments arguments ) {
 
         log.debug( 'Command-line arguments are: ', arguments.sourceArgs.join( ',' ) )
+
+        10.times {
+            def logError = ThreadLocalRandom.current().nextBoolean()
+            logError ? log.error( 'Forced failure!', new RuntimeException( "Iteration ${it}" ) ) : log.debug( 'Iteration {}', it )
+            Thread.sleep( 1000 )
+        }
+
     }
 }
