@@ -16,6 +16,9 @@
 package org.kurron.example
 
 import groovy.util.logging.Slf4j
+import org.slf4j.MDC
+import org.slf4j.Marker
+import org.slf4j.MarkerFactory
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
 
@@ -26,14 +29,27 @@ import java.util.concurrent.ThreadLocalRandom
  **/
 @Slf4j
 class RunAtStartUp implements ApplicationRunner {
+
+    private void storeValuesInMdc()
+    {
+        MDC.put( 'message-code', '45678' )
+        MDC.put( 'service-code', 'Mold-E' )
+        MDC.put( 'service-instance', '12345' )
+        MDC.put( 'realm', 'Nashua Testing Lab' )
+    }
+
     @Override
     void run( final ApplicationArguments arguments ) {
 
         log.debug( 'Command-line arguments are: ', arguments.sourceArgs.join( ',' ) )
         int iterations = arguments.getNonOptionArgs() ? arguments.getNonOptionArgs().first() as int : 10
+
+        storeValuesInMdc()
+        final Marker audienceMarker = MarkerFactory.getMarker( 'Operations' )
+
         iterations.times {
             def logError = ThreadLocalRandom.current().nextBoolean()
-            logError ? log.error( 'Forced failure!', new RuntimeException( "Iteration ${it}" ) ) : log.debug( 'Iteration {}', it )
+            logError ? log.error( audienceMarker, 'Forced failure!', new RuntimeException( "Iteration ${it}" ) ) : log.debug( audienceMarker, 'Iteration {}', it )
             Thread.sleep( 1000 )
         }
 

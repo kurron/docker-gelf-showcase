@@ -30,13 +30,16 @@
             <includeContext>false</includeContext>
             <timeZone>UTC</timeZone>
             <fieldNames>
-                <timestamp>timestamp</timestamp>
-                <message>message</message>
+                <message>log-message</message>
                 <logger>component</logger>
                 <version>[ignore]</version>
                 <thread>[ignore]</thread>
                 <levelValue>[ignore]</levelValue>
             </fieldNames>
+            <includeMdcKeyName>message-code</includeMdcKeyName>
+            <includeMdcKeyName>service-code</includeMdcKeyName>
+            <includeMdcKeyName>service-instance</includeMdcKeyName>
+            <includeMdcKeyName>realm</includeMdcKeyName>
         </encoder>
     </appender>
 
