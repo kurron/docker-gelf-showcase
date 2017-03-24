@@ -38,10 +38,7 @@ apply from: "$rootDir/gradle/version.gradle"
 apply from: "$rootDir/gradle/groovy.gradle"
 apply from: "$rootDir/gradle/io-platform.gradle"
 apply from: "$rootDir/gradle/boot.gradle"
-apply from: "$rootDir/gradle/codenarc.gradle"
-apply from: "$rootDir/gradle/jacoco.gradle"
 apply from: "$rootDir/gradle/maven-publish.gradle"
-apply from: "$rootDir/gradle/contract.gradle"
 
 apply plugin: 'build-announcements'
 apply plugin: 'project-report'
