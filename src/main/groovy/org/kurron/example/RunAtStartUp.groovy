@@ -22,8 +22,6 @@ import org.slf4j.MarkerFactory
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
 
-import java.util.concurrent.ThreadLocalRandom
-
 /**
  * Initialization logic, like pre-warming a cache, goes here.
  **/
@@ -48,7 +46,8 @@ class RunAtStartUp implements ApplicationRunner {
         final Marker audienceMarker = MarkerFactory.getMarker( 'Operations' )
 
         iterations.times {
-            def logError = ThreadLocalRandom.current().nextBoolean()
+            //def logError = ThreadLocalRandom.current().nextBoolean()
+            def logError = false
             logError ? log.error( audienceMarker, 'Forced failure!', new RuntimeException( "Iteration ${it}" ) ) : log.debug( audienceMarker, 'Iteration {}', it )
             Thread.sleep( 1000 )
         }

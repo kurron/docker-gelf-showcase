@@ -2,11 +2,11 @@ version: '3'
 services:
     gelf:
         build: .
-        command: ["100"]
+        command: ["20"]
         logging:
             driver: gelf
             options:
-                gelf-address: "udp://10.0.2.113:12201"
+                gelf-address: "udp://54.202.68.205:12201"
                 gelf-compression-type: "gzip"
                 gelf-compression-level: "9"
                 tag: "bob"
