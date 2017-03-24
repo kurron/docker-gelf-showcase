@@ -30,8 +30,8 @@ class RunAtStartUp implements ApplicationRunner {
     void run( final ApplicationArguments arguments ) {
 
         log.debug( 'Command-line arguments are: ', arguments.sourceArgs.join( ',' ) )
-
-        10.times {
+        int iterations = arguments.getNonOptionArgs() ? arguments.getNonOptionArgs().first() as int : 10
+        iterations.times {
             def logError = ThreadLocalRandom.current().nextBoolean()
             logError ? log.error( 'Forced failure!', new RuntimeException( "Iteration ${it}" ) ) : log.debug( 'Iteration {}', it )
             Thread.sleep( 1000 )
