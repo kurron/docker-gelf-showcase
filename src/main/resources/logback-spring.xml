@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2017. Ronald D. Kurr kurr@jvmguy.com
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<configuration debug="false">
+
+    <!-- grab Spring's configuration in case we want to take advantage of some of its features -->
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <!-- required to ensure that bridging from java.util.logging does not cause a 20% performance hit -->
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
+
+
+    <!-- 12 Factor says only log to STDOUT and STDERR and let the process manager worrying about sending it to the aggregator. -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <includeContext>false</includeContext>
+            <timeZone>UTC</timeZone>
+            <fieldNames>
+                <timestamp>timestamp</timestamp>
+                <message>message</message>
+                <logger>component</logger>
+                <version>[ignore]</version>
+                <thread>[ignore]</thread>
+                <levelValue>[ignore]</levelValue>
+            </fieldNames>
+        </encoder>
+    </appender>
+
+    <!-- An example of how to work in Spring properties into the logging configuration -->
+    <springProperty name="serviceInstance" source="example.logging.serviceInstance"/>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>Instance = ${serviceInstance} %n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.kurron" level="ALL"/>
+    <logger name="org.springframework" level="WARN"/>
+
+    <!-- handles sending messages using background threads -->
+    <appender name="ASYNC-CONSOLE" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- The maximum capacity of the blocking queue. By default, queueSize is set to 256. -->
+        <queueSize>1024</queueSize>
+        <appender-ref ref="STDOUT"/>
+    </appender>
+
+    <root level="WARN">
+        <appender-ref ref="ASYNC-CONSOLE"/>
+    </root>
+</configuration>

@@ -1,0 +1,44 @@
+/*
+ * Copyright (c) 2017. Ronald D. Kurr kurr@jvmguy.com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+apply plugin: 'spring-cloud-contract'
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-contract-dependencies:${springCloudContractVersion}"
+    }
+}
+
+dependencies {
+    testCompile( 'org.springframework.cloud:spring-cloud-starter-contract-stub-runner' ) {
+        // prevent older versions of Groovy from getting dragged in
+        exclude group: 'org.codehaus.groovy'
+    }
+}
+
+// In this section you define all Spring Cloud Contract Verifier Gradle Plugin properties
+/*
+contracts {
+    baseClassForTests = 'com.example.MvcTest'
+    // fully qualified name to a class that will be the base class for your generated test classes
+}*/
+
+contracts {
+    testMode = 'MockMvc'
+    targetFramework = 'spock'
+//  baseClassForTests = 'org.mycompany.tests'
+//  generatedTestSourcesDir = project.file('src/generatedContract')
+}

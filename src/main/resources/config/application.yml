@@ -1,0 +1,72 @@
+endpoints:
+    sensitive: false
+    hypermedia:
+        enabled: true
+
+example:
+    outstandingMessages: \${random.int[1,10]}
+    logging:
+        serviceCode: ${name}
+        serviceInstance: \${random.int[1,65536]}
+        realm: development
+    inbound:
+        exchangeName: example-commands
+        routingKey: example-commands
+        queueName: example-commands
+    outbound:
+        exchangeName: example-events
+        routingKey: example-events
+    deadletter:
+        exchangeName: example-dead-letter
+        queueName: example-dead-letter
+        routingKey: example-dead-letter
+        messageRetryAttempts: 3
+
+management:
+    security:
+        enabled: false
+    context-path: /operations
+
+spring:
+    cloud:
+        stream:
+            bindings:
+                input:
+                    destination: rendezous
+                    group: example
+                    contentType: text/plain
+                    consumer:
+                        concurrency: 1
+                        partitioned: false
+                        maxAttempts: 3
+                        backOffInitialInterval: 1000
+                        backOffMaxInterval: 10000
+                        backOffMultiplier: 2.0
+                        acknowledgeMode: AUTO
+                        autoBindDlq: true
+                        durableSubscription: true
+                        maxConcurrency: 1
+                        prefetch: 1
+                        prefix: example.
+                        requeueRejected: true
+                        republishToDlq: true
+                        transacted: false
+                        txSize: 1
+                output:
+                    destination: rendezous
+                    contentType: text/plain
+                    producer:
+                        autoBindDlq: true
+                        batchingEnabled: false
+                        batchSize: 100
+                        batchBufferLimit: 1000
+                        batchTimeout: 5000
+                        compress: false
+                        deliveryMode: PERSISTENT
+                        prefix: example.
+    main:
+        banner-mode: "off"
+    jackson:
+        serialization:
+            indent_output: true
+        default-property-inclusion: non_empty
