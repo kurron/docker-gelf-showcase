@@ -30,7 +30,7 @@
                 <message>log-message</message>
                 <logger>component</logger>
                 <level>log-level</level>
-                <levelValue>log-level</levelValue>
+                <levelValue>log-level-value</levelValue>
                 <tags>audience</tags>
                 <stackTrace>stack-trace</stackTrace>
                 <version>[ignore]</version>
