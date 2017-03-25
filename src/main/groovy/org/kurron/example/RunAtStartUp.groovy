@@ -46,14 +46,15 @@ class RunAtStartUp implements ApplicationRunner {
         int iterations = arguments.getNonOptionArgs() ? arguments.getNonOptionArgs().first() as int : 10
 
         storeValuesInMdc()
-        final Marker audienceMarker = MarkerFactory.getMarker( 'Operations' )
+        final Marker operations = MarkerFactory.getMarker( 'Operations' )
+        final Marker development = MarkerFactory.getMarker( 'Development' )
 
         def oops =  new RuntimeException( 'Forced to fail!' )
 
         iterations.times {
             def logError = ThreadLocalRandom.current().nextBoolean()
             //def logError = true
-            logError ? log.error( 'Forced failure!', oops ) : log.debug( audienceMarker, 'Iteration {}', it )
+            logError ? log.error( operations, 'Forced failure!', oops ) : log.debug( development, 'Iteration {}', it )
             Thread.sleep( 1000 )
         }
 
