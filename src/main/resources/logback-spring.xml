@@ -17,9 +17,6 @@
 
 <configuration debug="false">
 
-    <!-- grab Spring's configuration in case we want to take advantage of some of its features -->
-    <include resource="org/springframework/boot/logging/logback/base.xml"/>
-
     <!-- required to ensure that bridging from java.util.logging does not cause a 20% performance hit -->
     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
 
@@ -32,7 +29,9 @@
             <fieldNames>
                 <message>log-message</message>
                 <logger>component</logger>
+                <level>log-level</level>
                 <tags>audience</tags>
+                <stackTrace>stack-trace</stackTrace>
                 <version>[ignore]</version>
                 <thread>[ignore]</thread>
                 <levelValue>[ignore]</levelValue>

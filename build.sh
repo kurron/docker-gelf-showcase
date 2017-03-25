@@ -1,4 +1,4 @@
 #!/bin/bash
 
-./gradlew
+./gradlew --no-daemon
 docker-compose build

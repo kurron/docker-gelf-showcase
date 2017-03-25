@@ -3,6 +3,8 @@ services:
     gelf:
         build: .
         command: ["20"]
+        stdin_open: true
+        tty: true
         logging:
             driver: gelf
             options:
