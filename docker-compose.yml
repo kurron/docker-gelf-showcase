@@ -2,6 +2,7 @@ version: '3'
 services:
     gelf:
         build: .
+        container_name: gelf-generator
         command: ["20"]
         stdin_open: true
         tty: true
