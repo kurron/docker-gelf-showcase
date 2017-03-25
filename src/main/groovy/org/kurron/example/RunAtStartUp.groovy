@@ -30,10 +30,13 @@ import java.util.concurrent.ThreadLocalRandom
 @Slf4j
 class RunAtStartUp implements ApplicationRunner {
 
-    private void storeValuesInMdc()
-    {
+    private static void storeValuesInMdc() {
         MDC.put( 'message-code', '45678' )
         MDC.put( 'realm', 'Nashua Testing Lab' )
+    }
+
+    private static void clearValuesInMdc() {
+        MDC.clear()
     }
 
     @Override
@@ -54,5 +57,6 @@ class RunAtStartUp implements ApplicationRunner {
             Thread.sleep( 1000 )
         }
 
+        clearValuesInMdc()
     }
 }
