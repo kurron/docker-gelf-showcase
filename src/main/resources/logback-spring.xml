@@ -38,8 +38,6 @@
                 <levelValue>[ignore]</levelValue>
             </fieldNames>
             <includeMdcKeyName>message-code</includeMdcKeyName>
-            <includeMdcKeyName>service-code</includeMdcKeyName>
-            <includeMdcKeyName>service-instance</includeMdcKeyName>
             <includeMdcKeyName>realm</includeMdcKeyName>
         </encoder>
     </appender>

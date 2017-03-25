@@ -31,8 +31,6 @@ class RunAtStartUp implements ApplicationRunner {
     private void storeValuesInMdc()
     {
         MDC.put( 'message-code', '45678' )
-        MDC.put( 'service-code', 'Mold-E' )
-        MDC.put( 'service-instance', '12345' )
         MDC.put( 'realm', 'Nashua Testing Lab' )
     }
 
