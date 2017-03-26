@@ -6,13 +6,19 @@
     <!-- always good activate OnConsoleStatusListener -->
     <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" />
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <Pattern>combined</Pattern>
-            <Pattern>%fullRequest%n%n%fullResponse</Pattern>
+    <!-- 12 Factor says only log to STDOUT and STDERR and let the process manager worrying about sending it to the aggregator. -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashAccessEncoder">
+            <includeContext>false</includeContext>
+            <timeZone>UTC</timeZone>
+            <fieldNames>
+                <message>raw-message</message>
+                <fieldsRequestHeaders>@fields.request_headers</fieldsRequestHeaders>
+                <fieldsResponseHeaders>@fields.response_headers</fieldsResponseHeaders>
+            </fieldNames>
         </encoder>
     </appender>
 
-    <appender-ref ref="STDOUT" />
+    <appender-ref ref="CONSOLE" />
 
 </configuration>
