@@ -1,0 +1,4 @@
+http.host: "0.0.0.0"
+xpack.monitoring.elasticsearch.url: http://search-phoenix-i43nf624oy3q6kba3zomjljrwq.us-west-2.es.amazonaws.com:80
+xpack.monitoring.elasticsearch.username: logstash_system
+xpack.monitoring.elasticsearch.password: changeme

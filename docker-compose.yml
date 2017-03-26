@@ -8,6 +8,7 @@ services:
         tty: true
         volumes:
             - ./pipeline:/usr/share/logstash/pipeline/:ro
+            - ./logstash-config:/usr/share/logstash/config/:ro
 
     gelf:
         build: .
