@@ -1,15 +1,26 @@
 version: '3'
 services:
+    logstash:
+        container_name: logstash 
+        image: docker.elastic.co/logstash/logstash:5.2.2
+        network_mode: "host"
+        stdin_open: true
+        tty: true
+        volumes:
+            - ./pipeline:/usr/share/logstash/pipeline/:ro
+
     gelf:
         build: .
         container_name: gelf-generator
         command: ["20"]
+        depends_on:
+            - logstash
         stdin_open: true
         tty: true
         logging:
             driver: gelf
             options:
-                gelf-address: "udp://54.202.68.205:12201"
+                gelf-address: "udp://localhost:12201"
                 gelf-compression-type: "gzip"
                 gelf-compression-level: "9"
                 tag: "nashua-jvm"
