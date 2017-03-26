@@ -1,0 +1,18 @@
+<!-- the format of this file is DIFFERENT from the standard configuration file -->
+<configuration>
+    <!-- required to ensure that bridging from java.util.logging does not cause a 20% performance hit -->
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
+
+    <!-- always good activate OnConsoleStatusListener -->
+    <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <Pattern>combined</Pattern>
+            <Pattern>%fullRequest%n%n%fullResponse</Pattern>
+        </encoder>
+    </appender>
+
+    <appender-ref ref="STDOUT" />
+
+</configuration>

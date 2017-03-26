@@ -1,4 +1,5 @@
 endpoints:
+    enabled: true
     sensitive: false
     hypermedia:
         enabled: true
@@ -70,3 +71,9 @@ spring:
         serialization:
             indent_output: true
         default-property-inclusion: non_empty
+
+server:
+    tomcat:
+        basedir: my-tomcat
+        accesslog:
+            enabled: true

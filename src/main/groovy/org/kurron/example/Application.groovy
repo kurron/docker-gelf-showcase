@@ -15,9 +15,12 @@
  */
 package org.kurron.example
 
+import ch.qos.logback.access.tomcat.LogbackValve
 import groovy.util.logging.Slf4j
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory
+import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory
 import org.springframework.context.annotation.Bean
 
 /**
@@ -33,5 +36,13 @@ class Application {
     @Bean
     RunAtStartUp runAtStartUp() {
         new RunAtStartUp()
+    }
+
+    @Bean
+    EmbeddedServletContainerFactory servletContainer() {
+        def factory = new TomcatEmbeddedServletContainerFactory()
+        def valve = new LogbackValve()
+        factory.addContextValves( valve )
+        factory
     }
 }
