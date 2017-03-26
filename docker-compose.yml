@@ -13,7 +13,7 @@ services:
     gelf:
         build: .
         container_name: gelf-generator
-        command: ["20"]
+        command: ["60"]
         depends_on:
             - logstash
         stdin_open: true
